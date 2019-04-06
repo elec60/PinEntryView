@@ -12,13 +12,12 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.ContextCompat
 
-class PinEntryView  : AppCompatEditText {
+class PinEntryView : AppCompatEditText {
 
-    private val maxLength = 5
+    private var maxLength = 4 // default length
     private val mSpace = toPxF(16)
     private val mCharSize = toPxF(32)
     private var mLineSpacing = toPxF(12)
@@ -42,6 +41,10 @@ class PinEntryView  : AppCompatEditText {
         color = getColor(R.color.coal)
         textSize = toPxF(18)
     }
+
+
+    var lineColor= getColor(R.color.silverGray)
+
     constructor(context: Context) : super(context) {
         init(context, null)
     }
@@ -55,6 +58,28 @@ class PinEntryView  : AppCompatEditText {
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
+
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PinEntryView, 0, 0)
+
+        if (typedArray.hasValue(R.styleable.PinEntryView_number_count))
+            maxLength = typedArray.getInt(R.styleable.PinEntryView_number_count, 4)
+
+        if (typedArray.hasValue(R.styleable.PinEntryView_line_color)) {
+            lineColor = typedArray.getColor(
+                R.styleable.PinEntryView_line_color,
+                ContextCompat.getColor(context, R.color.silverGray)
+            )
+        }
+
+        if (typedArray.hasValue(R.styleable.PinEntryView_text_color))
+            textPaint.color = typedArray.getInt(
+                R.styleable.PinEntryView_text_color,
+                ContextCompat.getColor(context, R.color.coal)
+            )
+
+
+        typedArray.recycle()
+
         setBackgroundResource(0)
         setTextIsSelectable(false)
         //isCursorVisible = false
@@ -122,14 +147,15 @@ class PinEntryView  : AppCompatEditText {
         while (i < maxLength) {
             when {
                 i < textLength -> linePaint.color = getColor(R.color.green)
-                else -> linePaint.color = getColor(R.color.silverGray)
+                else -> linePaint.color = lineColor
             }
             canvas.drawRect(
                 startX.toFloat(),
                 top.toFloat() + 0,
                 startX + mCharSize,
                 (top + toPxF(2)),
-                linePaint)
+                linePaint
+            )
 
             startX += (mCharSize + mSpace).toInt()
             i++
@@ -153,7 +179,7 @@ class PinEntryView  : AppCompatEditText {
                 if ((k < textLength - 1)) {
                     drawNumber(canvas, charSequence, k, middle, top, false)
                     startX += (mCharSize + mSpace).toInt()
-                }else{
+                } else {
                     drawNumber(canvas, charSequence, k, middle, top, true)
                 }
 
@@ -165,15 +191,17 @@ class PinEntryView  : AppCompatEditText {
     private fun drawNumber(canvas: Canvas, text: CharSequence, i: Int, middle: Float, top: Int, animated: Boolean) {
         if (animated) {
             textPaint.alpha = animatedAlpha
-        }else{
+        } else {
             textPaint.alpha = 255
         }
-        canvas.drawText(text,
+        canvas.drawText(
+            text,
             i,
             i + 1,
             middle - textWidths[i] / 2,
             top - if (animated) mLineSpacingAnimated else mLineSpacing,
-            textPaint)
+            textPaint
+        )
     }
 
     private fun animate1() {
