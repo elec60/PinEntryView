@@ -25,7 +25,7 @@ class PinEntryView : AppCompatEditText {
 
     private var textWidths = FloatArray(maxLength)
 
-    var hasAnimation = true
+    var hasAnimation = false
     private var isAnimating = false
     private var animatedAlpha = 255
 
@@ -78,6 +78,9 @@ class PinEntryView : AppCompatEditText {
                 R.styleable.PinEntryView_text_color,
                 ContextCompat.getColor(context, R.color.coal)
             )
+
+        if (typedArray.hasValue(R.styleable.PinEntryView_has_animation))
+            hasAnimation = typedArray.getBoolean(R.styleable.PinEntryView_has_animation, false)
 
 
         typedArray.recycle()

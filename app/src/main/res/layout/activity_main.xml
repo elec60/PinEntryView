@@ -14,9 +14,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:line_color="@color/colorAccent"
+            app:line_color="#ff0000"
             app:number_count="5"
-            app:text_color="@color/colorPrimary"
+            app:text_color="#1f1f1f"
+            app:has_animation="true"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

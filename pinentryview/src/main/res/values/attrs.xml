@@ -4,5 +4,6 @@
         <attr name="number_count" format="integer"/>
         <attr name="line_color" format="color"/>
         <attr name="text_color" format="color"/>
+        <attr name="has_animation" format="boolean"/>
     </declare-styleable>
 </resources>
