@@ -39,11 +39,12 @@ class PinEntryView : AppCompatEditText {
     private var textPaint: TextPaint = TextPaint().apply {
         isAntiAlias = true
         color = getColor(R.color.coal)
-        textSize = toPxF(18)
+        textSize = spToPxF(18)
     }
 
 
     var lineColor = getColor(R.color.silverGray)
+    var filledLineColor = getColor(R.color.green)
 
     constructor(context: Context) : super(context) {
         init(context, null)
@@ -79,8 +80,17 @@ class PinEntryView : AppCompatEditText {
                 ContextCompat.getColor(context, R.color.coal)
             )
 
+        if (typedArray.hasValue(R.styleable.PinEntryView_filled_line_color))
+            filledLineColor = typedArray.getInt(
+                R.styleable.PinEntryView_filled_line_color,
+                ContextCompat.getColor(context, R.color.coal)
+            )
+
         if (typedArray.hasValue(R.styleable.PinEntryView_has_animation))
             hasAnimation = typedArray.getBoolean(R.styleable.PinEntryView_has_animation, false)
+
+        if (typedArray.hasValue(R.styleable.PinEntryView_digit_size))
+            textPaint.textSize = typedArray.getDimension(R.styleable.PinEntryView_digit_size, textPaint.textSize)
 
 
         typedArray.recycle()
@@ -151,7 +161,7 @@ class PinEntryView : AppCompatEditText {
         var i = 0
         while (i < maxLength) {
             when {
-                i < textLength -> linePaint.color = getColor(R.color.green)
+                i < textLength -> linePaint.color = filledLineColor
                 else -> linePaint.color = lineColor
             }
             canvas.drawRect(
