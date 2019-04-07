@@ -23,7 +23,7 @@ class PinEntryView : AppCompatEditText {
     private var mLineSpacing = toPxF(12)
     private var mLineSpacingAnimated = toPxF(12)
 
-    private val textWidths = FloatArray(maxLength)
+    private var textWidths = FloatArray(maxLength)
 
     var hasAnimation = true
     private var isAnimating = false
@@ -43,7 +43,7 @@ class PinEntryView : AppCompatEditText {
     }
 
 
-    var lineColor= getColor(R.color.silverGray)
+    var lineColor = getColor(R.color.silverGray)
 
     constructor(context: Context) : super(context) {
         init(context, null)
@@ -61,8 +61,10 @@ class PinEntryView : AppCompatEditText {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PinEntryView, 0, 0)
 
-        if (typedArray.hasValue(R.styleable.PinEntryView_number_count))
+        if (typedArray.hasValue(R.styleable.PinEntryView_number_count)) {
             maxLength = typedArray.getInt(R.styleable.PinEntryView_number_count, 4)
+            textWidths = FloatArray(maxLength)
+        }
 
         if (typedArray.hasValue(R.styleable.PinEntryView_line_color)) {
             lineColor = typedArray.getColor(
@@ -82,7 +84,7 @@ class PinEntryView : AppCompatEditText {
 
         setBackgroundResource(0)
         setTextIsSelectable(false)
-        //isCursorVisible = false
+        isCursorVisible = false
         inputType = InputType.TYPE_CLASS_NUMBER
         keyListener = DigitsKeyListener.getInstance()
 
@@ -202,6 +204,16 @@ class PinEntryView : AppCompatEditText {
             top - if (animated) mLineSpacingAnimated else mLineSpacing,
             textPaint
         )
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        setMeasuredDimension(
+            (maxLength * mCharSize).toInt() + ((maxLength - 1) * mSpace).toInt() + paddingLeft + paddingRight,
+            measuredHeight
+        )
+
     }
 
     private fun animate1() {
