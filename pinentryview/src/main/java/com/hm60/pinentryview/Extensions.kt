@@ -12,6 +12,12 @@ fun View.toPxF(dp:Int): Float{
         dp.toFloat(),
         resources.displayMetrics).toFloat()
 }
+fun View.spToPxF(sp:Int): Float{
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        sp.toFloat(),
+        resources.displayMetrics).toFloat()
+}
 
 fun View.getColor(@ColorRes colorId:Int):Int {
     return ContextCompat.getColor(context, colorId)

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PinEntryView">
+        <attr name="number_count" format="integer"/>
+        <attr name="line_color" format="color"/>
+        <attr name="filled_line_color" format="color"/>
+        <attr name="text_color" format="color"/>
+        <attr name="has_animation" format="boolean"/>
+        <attr name="digit_size" format="dimension"/>
+        <attr name="digit_space" format="dimension"/>
+        <attr name="digit_width" format="dimension"/>
+    </declare-styleable>
+</resources>
