@@ -7,5 +7,6 @@
         <attr name="text_color" format="color"/>
         <attr name="has_animation" format="boolean"/>
         <attr name="digit_size" format="dimension"/>
+        <attr name="digit_space" format="dimension"/>
     </declare-styleable>
 </resources>

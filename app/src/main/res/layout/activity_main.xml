@@ -20,6 +20,7 @@
             app:has_animation="true"
             app:digit_size="22sp"
             app:filled_line_color="#d2a12a"
+            app:digit_space="8dp"
             android:text="123"
     />
 
