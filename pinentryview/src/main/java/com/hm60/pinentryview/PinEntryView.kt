@@ -19,7 +19,7 @@ class PinEntryView : AppCompatEditText {
 
     private var maxLength = 4 // default length
     private var mSpace = toPxF(16)
-    private val mCharSize = toPxF(32)
+    private var mCharSize = toPxF(32)
     private var mLineSpacing = toPxF(12)
     private var mLineSpacingAnimated = toPxF(12)
 
@@ -93,7 +93,10 @@ class PinEntryView : AppCompatEditText {
             textPaint.textSize = typedArray.getDimension(R.styleable.PinEntryView_digit_size, textPaint.textSize)
 
         if (typedArray.hasValue(R.styleable.PinEntryView_digit_space))
-            mSpace = typedArray.getDimension(R.styleable.PinEntryView_digit_space, textPaint.textSize)
+            mSpace = typedArray.getDimension(R.styleable.PinEntryView_digit_space, mSpace)
+
+        if (typedArray.hasValue(R.styleable.PinEntryView_digit_width))
+            mCharSize = typedArray.getDimension(R.styleable.PinEntryView_digit_width, mCharSize)
 
 
         typedArray.recycle()

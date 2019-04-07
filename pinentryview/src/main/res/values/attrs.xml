@@ -8,5 +8,6 @@
         <attr name="has_animation" format="boolean"/>
         <attr name="digit_size" format="dimension"/>
         <attr name="digit_space" format="dimension"/>
+        <attr name="digit_width" format="dimension"/>
     </declare-styleable>
 </resources>
