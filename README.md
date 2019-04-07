@@ -1,4 +1,6 @@
 # PinEntryView
+[![](https://jitpack.io/v/sma6871/PinEntryView.svg)](https://jitpack.io/#sma6871/PinEntryView)
+
 Pin/OTP entry field library for Android
 
 ![](demo.gif)
